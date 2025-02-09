@@ -1,0 +1,90 @@
+﻿@page
+@model ABC_STAFF_CLIENT.Pages.TransactionsModel
+@{
+}
+<h2>Deposits and withdrawals</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Transaction Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trans in Model.transactions)
+        {
+            if (trans.AccountNumber == Model.accountNumber)
+            {
+                <tr>
+                    <td>@trans.Id</td>
+                    <td>@trans.TransactionDate</td>
+                    <td>@trans.Type</td>
+                    <td>@trans.Amount</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<hr />
+<h2>Transfers</h2>
+<div class="col-md-12">
+    <div class="col-md-6">
+        <h3>Debit</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Source Account</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transfer in Model.transfers)
+                {
+                    if (transfer.TargetAccount == Model.accountNumber)
+                    {
+                        <tr>
+                            <td>@transfer.Id</td>
+                            <td>@transfer.SourceAccount</td>
+                            <td>@transfer.Amount</td>
+                            <td>@transfer.TransactionDate</td>
+                        </tr>   
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h3>Credit</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Target Account</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transfer in Model.transfers)
+                {
+                    if (transfer.SourceAccount == Model.accountNumber)
+                    {
+                        <tr>
+                            <td>@transfer.Id</td>
+                            <td>@transfer.TargetAccount</td>
+                            <td>@transfer.Amount</td>
+                            <td>@transfer.TransactionDate</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
