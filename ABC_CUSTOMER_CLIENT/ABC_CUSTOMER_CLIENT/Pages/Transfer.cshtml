@@ -1,0 +1,20 @@
+﻿@page
+@model ABC_CUSTOMER_CLIENT.Pages.TransferModel
+@{
+}
+<h3>Make a transfer to another account</h3>
+<div class="col-md-4">
+    <form method="post">
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" name="amount" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="targetAccount">Target Account</label>
+            <input type="text" name="targetAccount" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-info" type="submit">Make Transfer</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,120 @@
+﻿@page
+@model ABC_CUSTOMER_CLIENT.Pages.AccountModel
+@{
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-4 float-lg-start">
+            <img src="/images/user.png" alt="User" class="img-circle" />
+        </div>
+        <div class="col-md-8 text-center">
+            <div class="">
+                <h4>Profile Information</h4>
+                <ul class="list-unstyled">
+                    <li>ID: <span class="text-info">@Model.account.Customer.Id</span></li>
+                    <li>Full Names: <span class="text-info">@Model.account.Customer.Names</span></li>
+                    <li>Phone: <span class="text-info">@Model.account.Customer.Phone</span></li>
+                    <li>Address: <span class="text-info">@Model.account.Customer.Address</span></li>
+                </ul>
+            </div>
+            <hr />
+            <div class="row">
+                <h4>Account Information Information</h4>
+                <ul class="list-unstyled">
+                    <li>Account Number: <span class="text-info">@Model.account.AccountNumber</span></li>
+                    <li>Balance : <span class="text-info">$ @Model.account.Balance</span></li>
+                    <li>Overdraft: <span class="text-info">@Model.account.Overdraft</span></li>
+                    <li>Branch: <span class="text-info">@Model.account.Branch</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+   
+</div>
+<div class="row">
+    <h2>Account Reports</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Transaction Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trans in Model.transactions)
+            {
+                if (trans.AccountNumber == Model.sessionToken)
+                {
+                    <tr>
+                        <td>@trans.Id</td>
+                        <td>@trans.TransactionDate</td>
+                        <td>@trans.Type</td>
+                        <td>@trans.Amount</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <hr />
+    <h2>Transfers</h2>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <h3>Debit</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Source Account</th>
+                        <th>Amount</th>
+                        <th>Transaction Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transfer in Model.transfers)
+                    {
+                        if (transfer.TargetAccount == Model.sessionToken)
+                        {
+                            <tr>
+                                <td>@transfer.Id</td>
+                                <td>@transfer.SourceAccount</td>
+                                <td>@transfer.Amount</td>
+                                <td>@transfer.TransactionDate</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3>Credit</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Target Account</th>
+                        <th>Amount</th>
+                        <th>Transaction Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transfer in Model.transfers)
+                    {
+                        if (transfer.SourceAccount == Model.sessionToken)
+                        {
+                            <tr>
+                                <td>@transfer.Id</td>
+                                <td>@transfer.TargetAccount</td>
+                                <td>@transfer.Amount</td>
+                                <td>@transfer.TransactionDate</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
